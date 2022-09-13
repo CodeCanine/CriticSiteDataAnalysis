@@ -164,14 +164,14 @@ fig, ax = plt.subplots()
 sns.kdeplot(data=norm_scores[['RT_Norm', 'STARS']], clip=[0, 5], shade=True, palette="Set1")
 sns.move_legend(ax, "upper left")
 plt.title("Rotten Tomatoes vs. Fandango Scores (Same Movies)")
-plt.savefig('kde_3.png', bbox_inches='tight')
+plt.savefig('./plots/kde_3.png', bbox_inches='tight')
 plt.show()
 
 # Quantifying the scores over all sites.
 sns.histplot(data=norm_scores, bins=25, palette="Set1")
 sns.move_legend(ax, "upper left")
 plt.title("Quantified Normalized Scores over all sites")
-plt.savefig('hist_3.png', bbox_inches='tight')
+plt.savefig('./plots/hist_3.png', bbox_inches='tight')
 plt.show()
 
 # Visualizing tilt in scores on cluster map.
