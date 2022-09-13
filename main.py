@@ -22,6 +22,7 @@ print("Fandango data structure: \n\n", fandango.head(), "\n")
 plt.figure(figsize=(10, 4), dpi=150)
 sns.scatterplot(data=fandango, y='VOTES', x='RATING')
 plt.title("User votes vs. Fandango ratings")
+plt.savefig('scatter.png', bbox_inches='tight')
 plt.show()
 
 # Correlation between columns.
@@ -36,6 +37,7 @@ print("Fandango movies by year: \n\n", fandango['YEAR'].value_counts(), "\n")
 # Visualizing number of movies by year.
 sns.countplot(data=fandango, x='YEAR')
 plt.title("Movies per year")
+plt.savefig('count.png', bbox_inches='tight')
 plt.show()
 
 # Top 10 movies by number of User votes.
@@ -55,6 +57,7 @@ sns.kdeplot(data=fan_reviewed, x='RATING', clip=[0, 5], fill=True, label='User (
 sns.kdeplot(data=fan_reviewed, x='STARS', clip=[0, 5], fill=True, label='Fandango Stars Displayed')
 plt.legend(loc=(0.02, 0.8))
 plt.title("User rating vs. Fandango ratings")
+plt.savefig('kde.png', bbox_inches='tight')
 plt.show()
 
 # Creating column, to see if the Fandango Star rating differs from User ratings, and if yes, by how much.
@@ -63,6 +66,7 @@ fan_reviewed['STARS_DIFF'] = (fan_reviewed['STARS'] - fan_reviewed['RATING']).ro
 # Visualizing difference with count plot.
 sns.countplot(data=fan_reviewed, x='STARS_DIFF')
 plt.title("Difference in Fandango ratings by number of stars")
+plt.savefig('count_2.png', bbox_inches='tight')
 plt.show()
 
 # Previous results show, that there is one movie, that has 1 whole star discrepancy.
@@ -82,6 +86,7 @@ sns.scatterplot(data=other_sites, x='RottenTomatoes', y='RottenTomatoes_User')
 plt.ylim(0, 100)
 plt.xlim(0, 100)
 plt.title("Rotten Tomatoes Scores vs. Rotten Tomatoes User Ratings")
+plt.savefig('scatter_2.png', bbox_inches='tight')
 plt.show()
 # Only a couple movies show outlying difference in scoring between Users and Rotten Tomatoes critics.
 
@@ -92,11 +97,13 @@ plt.figure(figsize=(10, 4), dpi=150)
 # Visualizing Rotten Tomatoes' Critics' and User review discrepancy.
 sns.histplot(data=other_sites, x='Rotten_Diff', kde=True, bins=25)
 plt.title("Difference between Rotten Tomatoes vs. User Ratings")
+plt.savefig('hist.png', bbox_inches='tight')
 plt.show()
 
 # Taking the absolute value of the new column, to see only the absolute differences.
 sns.histplot(x=other_sites['Rotten_Diff'].apply(abs), kde=True, bins=25)
 plt.title("Absolute difference between Rotten Tomatoes vs. User Ratings")
+plt.savefig('hist_2.png', bbox_inches='tight')
 plt.show()
 
 # Smallest difference movies by Rotten Tomatoes reviews.
@@ -110,12 +117,14 @@ sns.scatterplot(data=other_sites, x='Metacritic', y='Metacritic_User')
 plt.ylim(0, 10)
 plt.xlim(0, 100)
 plt.title("Metacritic Scores vs. Metacritic User Ratings")
+plt.savefig('scatter_3.png', bbox_inches='tight')
 plt.show()
 
 # Visualizing Metacritic User review counts vs. IMDB User review counts.
 plt.figure(figsize=(10, 4), dpi=150)
 sns.scatterplot(data=other_sites, x='Metacritic_user_vote_count', y='IMDB_user_vote_count')
 plt.title("Metacritic User vote count vs. IMDB User vote count")
+plt.savefig('scatter_4.png', bbox_inches='tight')
 plt.show()
 
 # Highest IMDB User voted movie.
@@ -146,6 +155,7 @@ fig, ax = plt.subplots()
 sns.kdeplot(data=norm_scores, clip=[0, 5], shade=True, palette="Set1")
 sns.move_legend(ax, "upper left")
 plt.title("Normalized Scores over all sites")
+plt.savefig('kde_2.png', bbox_inches='tight')
 plt.show()
 
 # Grabbing Rotten Tomatoes vs Fandango Critic Scores from previous plot.
@@ -154,16 +164,19 @@ fig, ax = plt.subplots()
 sns.kdeplot(data=norm_scores[['RT_Norm', 'STARS']], clip=[0, 5], shade=True, palette="Set1")
 sns.move_legend(ax, "upper left")
 plt.title("Rotten Tomatoes vs. Fandango Scores (Same Movies)")
+plt.savefig('kde_3.png', bbox_inches='tight')
 plt.show()
 
 # Quantifying the scores over all sites.
 sns.histplot(data=norm_scores, bins=25, palette="Set1")
 sns.move_legend(ax, "upper left")
 plt.title("Quantified Normalized Scores over all sites")
+plt.savefig('hist_3.png', bbox_inches='tight')
 plt.show()
 
 # Visualizing tilt in scores on cluster map.
 sns.clustermap(norm_scores, cmap='magma', col_cluster=False)
+plt.savefig('cluster.png', bbox_inches='tight')
 plt.show()
 # Cluster map shows a clear tilt in Fandango Scores as well as User Ratings.
 
@@ -177,6 +190,7 @@ worst_films = norm_films.nsmallest(10, 'RT_Norm')
 # Visualizing the Top 10 Worst films across all sites, based on Rotten Tomatoes Scoring.
 sns.kdeplot(data=worst_films, clip=[0, 5], shade=True, palette="Set1")
 plt.title("Top 10 Worst Movies' ratings across all sites")
+plt.savefig('kde_4.png', bbox_inches='tight')
 plt.show()
 
 # Quantifying the Top 10 Worst films' scores.
@@ -184,6 +198,7 @@ plt.figure(figsize=(12, 6))
 sns.histplot(data=worst_films, bins=25, palette="Set1")
 plt.title("Number of Top 10 Worst Movies")
 sns.move_legend(ax, "upper right")
+plt.savefig('hist_4.png', bbox_inches='tight')
 plt.show()
 
 # Conclusion: sites that sell movie tickets (Fandango in this case study), tend to rate movies higher.
